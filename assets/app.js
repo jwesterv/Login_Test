@@ -13,7 +13,7 @@ function initDb() {
 }
 initDb();
 var uiConfig = {
-    signInSuccessUrl: '<url-to-redirect-to-on-success>',
+    signInSuccessUrl: '<https://jwesterv.github.io/Project-1/d_board.html>',
     signInOptions: [
         // Leave the lines as is for the providers you want to offer your users.
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
@@ -22,7 +22,7 @@ var uiConfig = {
     // tosUrl and privacyPolicyUrl accept either url string or a callback
     // function.
     // Terms of service url/callback.
-    tosUrl: '<https://jwesterv.github.io/Project-1/d_board.html>',
+    tosUrl: '<your-tos-url>',
     // Privacy policy url/callback.
     privacyPolicyUrl: function () {
         window.location.assign('<your-privacy-policy-url>');
