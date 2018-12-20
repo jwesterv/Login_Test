@@ -1,7 +1,7 @@
 function initDb() {
 
 
-    
+
     // Initialize Firebase
     var config = {
       apiKey: "AIzaSyC6eAPWuYgz1OEsS8mvrkNfu4XYduyD5aE",
@@ -15,41 +15,29 @@ function initDb() {
     database = firebase.database();
   }
   
-  // Initialize the FirebaseUI Widget using Firebase.
-  var ui = new firebaseui.auth.AuthUI(firebase.auth());
-  
-  ui.start('#firebaseui-auth-container', {
-    signInOptions: [
-      firebase.auth.EmailAuthProvider.PROVIDER_ID
-    ],
-    // Other config options...
-  });
-  
-  ui.start('#firebaseui-auth-container', {
-    signInOptions =[
-      {
-        provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-        scopes: [
-          'https://www.googleapis.com/auth/plus.login'
+     var uiConfig = {
+        signInSuccessUrl: '<url-to-redirect-to-on-success>',
+        signInOptions: [
+          // Leave the lines as is for the providers you want to offer your users.
+          firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+          firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+          firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+          firebase.auth.GithubAuthProvider.PROVIDER_ID,
+          firebase.auth.EmailAuthProvider.PROVIDER_ID,
+          firebase.auth.PhoneAuthProvider.PROVIDER_ID,
+          firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID
         ],
-        customParameters: {
-          // Forces account selection even when one account
-          // is available.
-          prompt: 'select_account'
+        // tosUrl and privacyPolicyUrl accept either url string or a callback
+        // function.
+        // Terms of service url/callback.
+        tosUrl: '<your-tos-url>',
+        // Privacy policy url/callback.
+        privacyPolicyUrl: function() {
+          window.location.assign('<your-privacy-policy-url>');
         }
-      },
-      {
-        provider: firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-        scopes: [
-          'public_profile',
-          'email',
-          'user_likes',
-          'user_friends'
-        ],
-        customParameters: {
-          // Forces password re-entry.
-          auth_type: 'reauthenticate'
-        }
-      },
-    ]
-  });
+      };
+
+      // Initialize the FirebaseUI Widget using Firebase.
+      var ui = new firebaseui.auth.AuthUI(firebase.auth());
+      // The start method will wait until the DOM is loaded.
+      ui.start('#firebaseui-auth-container', uiConfig);
